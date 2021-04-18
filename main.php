@@ -1,8 +1,14 @@
 <?php
 session_start();
 
+if (!$_SESSION['user']) {
+  header('Location: /');
+}
+
 require_once 'vendor/connect.php';
 $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
+
+
 ?>
 
 
@@ -55,14 +61,34 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
             <a class="nav-link" href="#contacts">About</a>
           </li>
           <li class="nav-item">
-          <?php 
-            if($_SESSION['user']) {
-              echo '<a class="nav-link" href="profile.php">'.$_SESSION['login'].'</a>';
-            } else {
-              echo '<a class="nav-link" href="admin/">Войти в ПУ</a>';
+            <?php
+            if ($_SESSION['user']['user_group'] === '0') {
+              echo '
+              <div class="header-dropdown btn-group">
+                <a type="button" class="nav-link text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  '. $_SESSION['user']['login'] .'
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="profile.php">Мой профиль</a>
+                  <a class="dropdown-item" href="vendor/logout.php">Выйти из аккаунта</a>
+              </div>
+              ';
             }
-          ?>
-
+            else if ($_SESSION['user']['user_group'] === '1') {
+              echo '
+              <div class="header-dropdown btn-group">
+                <a type="button" class="nav-link text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  '.$_SESSION['user']['login'].'
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="profile.php">Мой профиль</a>
+                  <a class="dropdown-item" style="color:red" href="admin/content.php">Админ панель</a>
+                  <a class="dropdown-item" href="vendor/logout.php">Выйти из аккаунта</a>
+                </div>
+              </div>
+              ';
+            }
+            ?>
           </li>
         </ul>
       </div>
@@ -93,7 +119,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
           </div>
           <div class="col-lg-7">
             <div class="subpreview__item" data-aos="fade-up">
-              <img class="thumbnail-macbook" src="./images/macbook.png" alt="">
+              <img class="thumbnail-macbook" src="./assets/images/macbook.png" alt="">
             </div>
           </div>
         </div>
@@ -113,9 +139,9 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
           </div>
         </div>
         <table class="table table-striped table-md">
-              <?php
-              if(mysqli_num_rows($claims)) {
-                echo ' 
+          <?php
+          if (mysqli_num_rows($claims)) {
+            echo ' 
                   <thead>
                     <tr data-aos="fade-left" >
                       <th style="min-width: 150px; ">Номер заявки</th>
@@ -125,22 +151,22 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                   </thead>
                 <tbody>
                 ';
-                while ($claim = mysqli_fetch_assoc($claims)) {
-                  echo '
+            while ($claim = mysqli_fetch_assoc($claims)) {
+              echo '
                     <tr data-aos="fade-right">
                       <td>' . $claim["id"] . '</td>
                       <td>' . $claim["title"] . '</td>
                       <td>' . $claim["value"] . '</td>
                     </tr>
                     ';
-                };
-              echo '</tbody>';
-              } else {
-                echo '<h3 class="text-center">Новых заявок нет!</h3>';
-              }
-              ?>
-            </tbody>
-          </table>
+            };
+            echo '</tbody>';
+          } else {
+            echo '<h3 class="text-center">Новых заявок нет!</h3>';
+          }
+          ?>
+          </tbody>
+        </table>
       </div>
     </section>
 

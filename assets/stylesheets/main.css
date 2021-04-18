@@ -373,6 +373,10 @@ footer.page-footer input {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.header-dropdown {
+  color: #fff;
+}
+
 @media only screen and (min-width: 992px) {
   header.sticky-navbar {
     top: 20px;
