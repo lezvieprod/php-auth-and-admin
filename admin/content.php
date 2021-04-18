@@ -117,7 +117,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="../profile.php">Мой профиль</a>
                 <a class="dropdown-item" href="../main.php">На главную</a>
-                <a class="dropdown-item" href="vendor/logout.php">Выйти из аккаунта</a>
+                <a class="dropdown-item" href="../vendor/logout.php">Выйти из аккаунта</a>
               </div>
             </div>
           </li>
@@ -173,31 +173,33 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
             }
             ?>
           </table>
-          <div class="my-5 pb-5">
-            <div class="my-4">
-              <h3 class="my-0">Добавить новую заявку</h3>
+          <div class="container" style="max-width: 700px">
+            <div class="my-5 pb-5">
+              <div class="my-4">
+                <h3 class="my-0">Добавить новую заявку</h3>
+              </div>
+              <form action="includes/add-claim.php" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                  <input class="form-control" type="text" name="title" placeholder="Название заявки">
+                </div>
+                <div class="form-group">
+                  <select id="data-type" name="type" class="form-control">
+                    <option value="1" selected>Текст</option>
+                    <option value="2">Изображение</option>
+                  </select>
+                </div>
+                <div class="form-group" id="text-form">
+                  <textarea class="form-control" type="text" name="value" placeholder="Содержимое"></textarea>
+                </div>
+                <div class="form-group" id="image-form" style="display:none">
+                  <label class="form-label" for="image">Изображение</label>
+                  <input class="form-control" name="image" id="image" type="file">
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Добавить заявку</button>
+                </div>
+              </form>
             </div>
-            <form action="includes/add-claim.php" method="POST" enctype="multipart/form-data">
-              <div class="form-group">
-                <input class="form-control" type="text" name="title" placeholder="Название заявки">
-              </div>
-              <div class="form-group">
-                <select id="data-type" name="type" class="form-control">
-                  <option value="1" selected>Текст</option>
-                  <option value="2">Изображение</option>
-                </select>
-              </div>
-              <div class="form-group" id="text-form">
-                <textarea class="form-control" type="text" name="value" placeholder="Содержимое"></textarea>
-              </div>
-              <div class="form-group" id="image-form" style="display:none">
-                <label class="form-label" for="image">Изображение</label>
-                <input class="form-control" name="image" id="image" type="file">
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary">Добавить заявку</button>
-              </div>
-            </form>
           </div>
         </div>
       </main>

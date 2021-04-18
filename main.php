@@ -39,7 +39,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
   </div>
   <header class="sticky-navbar navbar navbar-expand-lg navbar-dark primary-color w-100">
     <div class="container">
-      <a class="navbar-brand" href="/">Sokol (<?= $_SESSION['user']['user_group'] ?>)</a>
+      <a class="navbar-brand" href="/">Sokol</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -66,19 +66,18 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
               echo '
               <div class="header-dropdown btn-group">
                 <a type="button" class="nav-link text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  '. $_SESSION['user']['login'] .'
+                  ' . $_SESSION['user']['login'] . '
                 </a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="profile.php">Мой профиль</a>
                   <a class="dropdown-item" href="vendor/logout.php">Выйти из аккаунта</a>
               </div>
               ';
-            }
-            else if ($_SESSION['user']['user_group'] === '1') {
+            } else if ($_SESSION['user']['user_group'] === '1') {
               echo '
               <div class="header-dropdown btn-group">
                 <a type="button" class="nav-link text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  '.$_SESSION['user']['login'].'
+                  ' . $_SESSION['user']['login'] . '
                 </a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="profile.php">Мой профиль</a>
@@ -139,9 +138,9 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
           </div>
         </div>
         <table class="table table-striped table-md">
-        <?php
-            if (mysqli_num_rows($claims)) {
-              echo ' 
+          <?php
+          if (mysqli_num_rows($claims)) {
+            echo ' 
                   <thead>
                     <tr data-aos="fade-left" >
                       <th style="min-width: 50px; ">ID</th>
@@ -153,8 +152,8 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                   </thead>
                 <tbody>
                 ';
-              while ($claim = mysqli_fetch_assoc($claims)) {
-                echo '
+            while ($claim = mysqli_fetch_assoc($claims)) {
+              echo '
                     <tr data-aos="fade-right">
                       <td >' . $claim["id"] . '</td>
                       <td >' . $claim["author"] . '</td>
@@ -162,38 +161,40 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                       <td>' . $claim["value"] . '</td>
                     </tr>
                     ';
-              };
-              echo '</tbody>';
-            } else {
-              echo '<h3 class="text-center">Новых заявок нет!</h3>';
-            }
-            ?>
+            };
+            echo '</tbody>';
+          } else {
+            echo '<h3 class="text-center">Новых заявок нет!</h3>';
+          }
+          ?>
           </tbody>
         </table>
-        <div class="my-5">
-              <h3 class="my-0">Добавить новую заявку</h3>
+        <div class="container" style="max-width: 700px">
+          <div class="my-5">
+            <h3 class="my-0">Добавить новую заявку</h3>
+          </div>
+          <form action="admin/includes/add-claim.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <input class="form-control" type="text" name="title" placeholder="Название заявки">
             </div>
-        <form action="admin/includes/add-claim.php" method="POST" enctype="multipart/form-data">
-              <div class="form-group">
-                <input class="form-control" type="text" name="title" placeholder="Название заявки">
-              </div>
-              <div class="form-group">
-                <select id="data-type" name="type" class="form-control">
-                  <option value="1" selected>Текст</option>
-                  <option value="2">Изображение</option>
-                </select>
-              </div>
-              <div class="form-group" id="text-form">
-                <textarea class="form-control" type="text" name="value" placeholder="Содержимое"></textarea>
-              </div>
-              <div class="form-group" id="image-form" style="display:none">
-                <label class="form-label" for="image">Изображение</label>
-                <input class="form-control" name="image" id="image" type="file">
-              </div>
-              <div class="form-group">
-                <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
-              </div>
-            </form>
+            <div class="form-group">
+              <select id="data-type" name="type" class="form-control">
+                <option value="1" selected>Текст</option>
+                <option value="2">Изображение</option>
+              </select>
+            </div>
+            <div class="form-group" id="text-form">
+              <textarea class="form-control" type="text" name="value" placeholder="Содержимое"></textarea>
+            </div>
+            <div class="form-group" id="image-form" style="display:none">
+              <label class="form-label" for="image">Изображение</label>
+              <input class="form-control" name="image" id="image" type="file">
+            </div>
+            <div class="form-group">
+              <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 

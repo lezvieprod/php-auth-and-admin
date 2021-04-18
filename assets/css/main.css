@@ -10,6 +10,7 @@ body {
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
+    background-color: rgba(246, 246, 246, 1);
 }
 
 a {
@@ -26,6 +27,10 @@ form {
     display: flex;
     flex-direction: column;
     width: 400px;
+    background-color: rgb(255, 255, 255);
+   border-radius: 8px;
+   box-shadow: 0 0 19px 3px rgba(0, 0, 0, 0.1);
+   padding:2rem;
 }
 
 input {

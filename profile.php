@@ -26,7 +26,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
 </head>
 
 <body>
-    <div class="background" > </div>
+    <div class="background"> </div>
     <div class="cover-container d-flex h-100 p-3 w-100 mx-auto flex-column">
         <header class="masthead mb-auto">
             <div class="inner">
@@ -39,25 +39,32 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
             </div>
         </header>
 
-        <main role="main" class="inner cover">
-            <h1 class="cover-heading"><?= $_SESSION['user']['login'] ?></h1>
-            <p class="lead"><?= $_SESSION['user']['full_name'] ?></p>
-            <p class="lead"><?= $_SESSION['user']['email'] ?></p>
-            <p class="lead">
-                <?php
-                if ($_SESSION['user']['user_group'] === '0') {
-                    echo '<span>Пользователь</span>';
-                } else {
-                    echo '<span style="color:red">Администратор</span>';
-                }
+        <main role="main" class="inner profile-body p-5 d-flex flex-wrap">
+            <div class="d-flex align-center align-items-center mr-5">
+                <div class="avatar">
+                    <img src="<?= $_SESSION['user']['avatar'] ?>" alt=""/>
+                </div>
+            </div>
+            <div>
+                <h1 class="cover-heading"><?= $_SESSION['user']['login'] ?></h1>
+                <p class="lead"><?= $_SESSION['user']['full_name'] ?></p>
+                <p class="lead"><?= $_SESSION['user']['email'] ?></p>
+                <p class="lead">
+                    <?php
+                    if ($_SESSION['user']['user_group'] === '0') {
+                        echo '<span>Пользователь</span>';
+                    } else {
+                        echo '<span style="color:red">Администратор</span>';
+                    }
 
-                ?>
-            </p>
+                    ?>
+                </p>
 
-            <p class="lead">
-                <a href="claims.php" class="btn btn-lg btn-secondary">Мои заявки</a>
-                <a href="vendor/logout.php" class="btn btn-lg btn-outline-secondary">Выход из аккаунта</a>
-            </p>
+                <p class="lead mt-5">
+                    <a href="claims.php" class="btn btn-lg btn-dark">Мои заявки</a>
+                    <a href="vendor/logout.php" class="btn btn-lg btn-outline-dark">Выход из аккаунта</a>
+                </p>
+            </div>
         </main>
 
         <footer class="mastfoot mt-auto">

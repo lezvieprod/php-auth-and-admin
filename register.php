@@ -17,6 +17,7 @@
     <!-- Форма регистрации -->
 
     <form>
+    <h2 style="margin-bottom: 2rem ">Регистрация</h2>
         <label>ФИО</label>
         <input type="text" name="full_name" placeholder="Введите свое полное имя">
         <label>Логин</label>

@@ -39,8 +39,8 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
             </div>
         </header>
 
-        <main role="main" class="inner cover">
-        <table class="table table-striped table-dark table-md">
+        <main role="main" class="inner">
+        <table class="table table-striped  profile-body table-md">
         <?php
             if (mysqli_num_rows($claims)) {
               echo ' 
@@ -66,7 +66,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
               };
               echo '</tbody>';
             } else {
-              echo '<h3 class="text-center">Новых заявок нет!</h3>';
+              echo '<h3 class="text-center">Вы не добавили ни одну заявку</h3>';
             }
             ?>
           </tbody>
