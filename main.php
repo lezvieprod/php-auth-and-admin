@@ -139,34 +139,61 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
           </div>
         </div>
         <table class="table table-striped table-md">
-          <?php
-          if (mysqli_num_rows($claims)) {
-            echo ' 
+        <?php
+            if (mysqli_num_rows($claims)) {
+              echo ' 
                   <thead>
                     <tr data-aos="fade-left" >
-                      <th style="min-width: 150px; ">Номер заявки</th>
+                      <th style="min-width: 50px; ">ID</th>
+                      <th style="min-width: 100px; ">Автор</th>
                       <th style="min-width: 250px;">Название</th>
-                      <th>Текст заявки</th>
+                      <th >Текст заявки</th>
+                      
                     </tr>
                   </thead>
                 <tbody>
                 ';
-            while ($claim = mysqli_fetch_assoc($claims)) {
-              echo '
+              while ($claim = mysqli_fetch_assoc($claims)) {
+                echo '
                     <tr data-aos="fade-right">
-                      <td>' . $claim["id"] . '</td>
-                      <td>' . $claim["title"] . '</td>
+                      <td >' . $claim["id"] . '</td>
+                      <td >' . $claim["author"] . '</td>
+                      <td >' . $claim["title"] . '</td>
                       <td>' . $claim["value"] . '</td>
                     </tr>
                     ';
-            };
-            echo '</tbody>';
-          } else {
-            echo '<h3 class="text-center">Новых заявок нет!</h3>';
-          }
-          ?>
+              };
+              echo '</tbody>';
+            } else {
+              echo '<h3 class="text-center">Новых заявок нет!</h3>';
+            }
+            ?>
           </tbody>
         </table>
+        <div class="my-5">
+              <h3 class="my-0">Добавить новую заявку</h3>
+            </div>
+        <form action="admin/includes/add-claim.php" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <input class="form-control" type="text" name="title" placeholder="Название заявки">
+              </div>
+              <div class="form-group">
+                <select id="data-type" name="type" class="form-control">
+                  <option value="1" selected>Текст</option>
+                  <option value="2">Изображение</option>
+                </select>
+              </div>
+              <div class="form-group" id="text-form">
+                <textarea class="form-control" type="text" name="value" placeholder="Содержимое"></textarea>
+              </div>
+              <div class="form-group" id="image-form" style="display:none">
+                <label class="form-label" for="image">Изображение</label>
+                <input class="form-control" name="image" id="image" type="file">
+              </div>
+              <div class="form-group">
+                <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
+              </div>
+            </form>
       </div>
     </section>
 
