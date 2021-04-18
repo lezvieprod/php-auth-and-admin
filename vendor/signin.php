@@ -40,7 +40,8 @@ if (mysqli_num_rows($check_user) > 0) {
         "id" => $user['id'],
         "full_name" => $user['full_name'],
         "avatar" => $user['avatar'],
-        "email" => $user['email']
+        "email" => $user['email'],
+        "user_group" => $user['user_group']
     ];
 
     $response = [

@@ -21,7 +21,7 @@ $('.login-btn').click(function (e) {
         success (data) {
 
             if (data.status) {
-                document.location.href = '/profile.php';
+                document.location.href = '/main.php';
             } else {
 
                 if (data.type === 1) {

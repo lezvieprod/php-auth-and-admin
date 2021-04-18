@@ -19,6 +19,7 @@ if ($_SESSION['user']) {
     <!-- Форма авторизации -->
 
     <form>
+    <h2 style="margin: 2rem 0">Авторизация</h2>
         <label>Логин</label>
         <input type="text" name="login" placeholder="Введите свой логин">
         <label>Пароль</label>

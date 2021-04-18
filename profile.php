@@ -3,6 +3,9 @@ session_start();
 if (!$_SESSION['user']) {
     header('Location: /');
 }
+
+$usergroup = $_SESSION['user']['user_group']
+
 ?>
 
 <!doctype html>
@@ -20,6 +23,15 @@ if (!$_SESSION['user']) {
         <img src="<?= $_SESSION['user']['avatar'] ?>" width="200" alt="">
         <h2 style="margin: 10px 0;"><?= $_SESSION['user']['full_name'] ?></h2>
         <a href="#"><?= $_SESSION['user']['email'] ?></a>
+        <a href="#"><?php
+            if($_SESSION['user']['user_group'] === '0') {
+                echo '<span>Пользователь</span>';
+            } else {
+                echo '<span style="color:red">Администратор</span>';
+            }
+
+        ?></a>
+
         <a href="vendor/logout.php" class="logout">Выход</a>
     </form>
 
