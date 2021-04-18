@@ -2,14 +2,11 @@
 
 session_start();
 
-$login = "admin";
-$password = "admin";
-
-if ($login !== $_SESSION['login'] && $password !== $_SESSION['password']) {
-  header('Location: /admin');
+if (!$_SESSION['user']) {
+  header('Location: /');
 }
 
-require_once "connect.php";
+require_once './../../vendor/connect.php';
 
 $title = $_POST['title'];
 $value = $_POST['value'];

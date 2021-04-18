@@ -1,16 +1,11 @@
 <?php
 
 session_start();
-
-$login = "admin";
-$password = "admin";
-
-
-if ($login !== $_SESSION['login'] && $password !== $_SESSION['password']) {
-  header('Location: /admin');
+if (!$_SESSION['user']) {
+  header('Location: /');
 }
 
-require_once "connect.php";
+require_once './../../vendor/connect.php';
 
 $id = $_GET["id"];
 
