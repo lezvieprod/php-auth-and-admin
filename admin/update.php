@@ -134,23 +134,30 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
             <div class="my-4">
               <h3 class="my-0">Изменить заявку № <?= $id ?> (автор <?= $claim["author"] ?>)</h3>
             </div>
-            <form method="POST" action="includes/save-claim.php">
+            <form method="POST" action="includes/save-claim.php" enctype="multipart/form-data">
             <input type="hidden" value="<?= $claim['id'] ?>" name="id">
               <div class="form-group">
+                <label class="form-label">Название заявки</label>
                 <input class="form-control" value='<?= $claim["title"] ?>' type="text" name="title" placeholder="Название заявки">
               </div>
               <div class="form-group">
-                <select id="data-type" name="type" class="form-control">
-                  <option value="1" selected>Текст</option>
-                  <option value="2">Изображение</option>
+                <label class="form-label">Статус заявки</label>
+                <select id="data-type" name="status" class="form-control">
+                  <option value="0" <?= $claim["status"] === '0' ? 'selected' : '' ?>>Открыта</option>
+                  <option value="1" <?= $claim["status"] === '1' ? 'selected' : '' ?>>Закрыта</option>
                 </select>
               </div>
               <div class="form-group" id="text-form">
+                <label class="form-label">Текущие значение</label>
                 <textarea class="form-control" rows="4" type="text" name="value" placeholder="Содержимое"><?php echo $claim["value"] ?></textarea>
               </div>
-              <div class="form-group" id="image-form" style="display:none">
-                <label class="form-label" for="image">Изображение</label>
-                <input class="form-control" name="image" id="image" type="file">
+              <div class="form-group" id="image-form">
+                <label class="form-label" for="image">Изменить изображение до</label>
+                <input class="form-control" style="height: 43px;" name="image" type="file">
+              </div>
+              <div class="form-group" id="image-form">
+                <label class="form-label" for="imageAfter">Изменить изображение после</label>
+                <input class="form-control" style="height: 43px;" name="imageAfter" type="file">
               </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary mr-2">Применить</button>
@@ -164,22 +171,6 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
   </div>
 
 
-  <script>
-    let select = document.getElementById("data-type");
-    let textForm = document.getElementById("text-form");
-    let imageForm = document.getElementById("image-form");
-
-
-    select.addEventListener('change', function() {
-      if (select && select.value == 1) {
-        textForm.style.display = "block"
-        imageForm.style.display = "none"
-      } else if (select && select.value == 2) {
-        textForm.style.display = "none"
-        imageForm.style.display = "block"
-      }
-    })
-  </script>
 
 <script src="../assets/js/min/jquery.min.js"></script>
 <script src="../assets/js/min/popper.min.js"></script>

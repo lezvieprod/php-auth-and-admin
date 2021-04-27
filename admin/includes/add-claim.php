@@ -10,18 +10,14 @@ require_once './../../vendor/connect.php';
 
 $title = $_POST['title'];
 $author = $_SESSION['user']['login'];
+$status = 0;
 
-if($_POST['type'] == 1) {
-  $value = $_POST['value'];
-  $title && $value ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`) VALUES (NULL, '$author' , '$title', '$value') ") : null;
-} else {
+$path = "uploads/" . time() . $_FILES["image"]["name"];
+move_uploaded_file($_FILES["image"]['tmp_name'], '../../' . $path);
 
-  $path = "uploads/" . time() . $_FILES["image"]["name"];
-  move_uploaded_file($_FILES["image"]['tmp_name'], '../' . $path);
+$value = $path;
+$title && $value ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`, `status`) VALUES (NULL, '$author' , '$title', '$value', '$status') ") : null;
 
-  $value = "admin/" . $path;
-  $title && $value ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`) VALUES (NULL, '$author' , '$title', '$value') ") : null;
-}
 
 
 header('Location: /');

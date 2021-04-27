@@ -173,6 +173,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
             }
             ?>
           </table>
+          
           <div class="container" style="max-width: 700px">
             <div class="my-5 pb-5">
               <div class="my-4">
@@ -201,13 +202,14 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
               </form>
             </div>
           </div>
+
         </div>
       </main>
     </div>
   </div>
 
 
-  <script>
+  <!-- <script>
     let select = document.getElementById("data-type");
     let textForm = document.getElementById("text-form");
     let imageForm = document.getElementById("image-form");
@@ -222,7 +224,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
         imageForm.style.display = "block"
       }
     })
-  </script>
+  </script> -->
 
   <script src="../assets/js/min/jquery.min.js"></script>
   <script src="../assets/js/min/popper.min.js"></script>
