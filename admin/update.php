@@ -27,10 +27,10 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" type="text/css" href="../assets/stylesheets/min/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../assets//stylesheets/min/normalize.min.css">
-
+  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/min/fonts.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/main.css">
   <!-- Favicons -->
-  
+
   <meta name="theme-color" content="#7952b3">
 
   <style>
@@ -100,7 +100,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
 
 <body>
 
-<header class="navbar navbar-expand-lg navbar-dark bg-dark primary-color w-100">
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark primary-color w-100">
     <div class="container" style="max-width: 1200px">
       <a class="navbar-brand" href="content.php">Панель управления</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,7 +127,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
 
   <div class="container-fluid">
     <div class="row">
-    
+
       <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
         <div class="container" style="max-width: 1200px">
           <div class="my-5 pb-5">
@@ -135,7 +135,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
               <h3 class="my-0">Изменить заявку № <?= $id ?> (автор <?= $claim["author"] ?>)</h3>
             </div>
             <form method="POST" action="includes/save-claim.php" enctype="multipart/form-data">
-            <input type="hidden" value="<?= $claim['id'] ?>" name="id">
+              <input type="hidden" value="<?= $claim['id'] ?>" name="id">
               <div class="form-group">
                 <label class="form-label">Название заявки</label>
                 <input class="form-control" value='<?= $claim["title"] ?>' type="text" name="title" placeholder="Название заявки">
@@ -143,23 +143,53 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
               <div class="form-group">
                 <label class="form-label">Статус заявки</label>
                 <select id="data-type" name="status" class="form-control">
-                  <option value="0" <?= $claim["status"] === '0' ? 'selected' : '' ?>>Открыта</option>
-                  <option value="1" <?= $claim["status"] === '1' ? 'selected' : '' ?>>Закрыта</option>
+                  <option value="0" <?= $claim["status"] === '0' ? 'selected' : '' ?>>В обработке</option>
+                  <option value="1" <?= $claim["status"] === '1' ? 'selected' : '' ?>>Устранено</option>
                 </select>
               </div>
-              <div class="form-group" id="text-form">
-                <label class="form-label">Текущие значение</label>
-                <textarea class="form-control" rows="4" type="text" name="value" placeholder="Содержимое"><?php echo $claim["value"] ?></textarea>
-              </div>
+
               <div class="form-group" id="image-form">
-                <label class="form-label" for="image">Изменить изображение до</label>
-                <input class="form-control" style="height: 43px;" name="image" type="file">
+                <label class="form-label" for="imageBefore">Изображение до</label>
+                <?php
+                if ($claim["value"] !== '')
+                  echo '
+                  <div class="before-image-holder mb-2">
+                    <img src="../' . $claim["value"] . '" alt="До">
+                  </div>
+                  ';
+                ?>
+                <button class="btn d-flex btn-info" type="button" data-toggle="collapse" data-target="#collapseEditImageBefore" aria-expanded="false" aria-controls="collapseEditImageBefore">
+                  Изменить
+                </button>
+                <div class="collapse" id="collapseEditImageBefore">
+                  <div class="py-3">
+                    <input class="form-control" style="height: 43px;" name="imageBefore" type="file" accept="image/jpeg,image/png,image/gif">
+                  </div>
+                </div>
               </div>
+
+
+
               <div class="form-group" id="image-form">
-                <label class="form-label" for="imageAfter">Изменить изображение после</label>
-                <input class="form-control" style="height: 43px;" name="imageAfter" type="file">
+                <label class="form-label" for="imageAfter">Изображение после</label>
+                <?php
+                if ($claim["newValue"] !== '')
+                  echo '
+                  <div class="before-image-holder mb-2">
+                    <img src="../' . $claim["newValue"] . '" alt="После">
+                  </div>
+                  ';
+                ?>
+                <button class="btn d-flex btn-info" type="button" data-toggle="collapse" data-target="#collapseEditImageAfter" aria-expanded="false" aria-controls="collapseEditImageAfter">
+                  Изменить
+                </button>
+                <div class="collapse" id="collapseEditImageAfter">
+                  <div class="py-3">
+                    <input class="form-control" style="height: 43px;" name="imageAfter" type="file" accept="image/jpeg,image/png,image/gif">
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
+              <div class="form-group mt-5">
                 <button type="submit" class="btn btn-primary mr-2">Применить</button>
                 <a href="content.php" class="btn btn-outline-secondary">Отменить</a>
               </div>
@@ -172,9 +202,9 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
 
 
 
-<script src="../assets/js/min/jquery.min.js"></script>
-<script src="../assets/js/min/popper.min.js"></script>
-<script src="../assets/js/min/bootstrap.min.js"></script>
+  <script src="../assets/js/min/jquery.min.js"></script>
+  <script src="../assets/js/min/popper.min.js"></script>
+  <script src="../assets/js/min/bootstrap.min.js"></script>
 
 
 

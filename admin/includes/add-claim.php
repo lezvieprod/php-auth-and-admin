@@ -12,11 +12,14 @@ $title = $_POST['title'];
 $author = $_SESSION['user']['login'];
 $status = 0;
 
-$path = "uploads/" . time() . $_FILES["image"]["name"];
-move_uploaded_file($_FILES["image"]['tmp_name'], '../../' . $path);
-
-$value = $path;
-$title && $value ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`, `status`) VALUES (NULL, '$author' , '$title', '$value', '$status') ") : null;
+if($_FILES["image"]["name"]) {
+  $path = "uploads/" . time() . $_FILES["image"]["name"];
+  move_uploaded_file($_FILES["image"]['tmp_name'], '../../' . $path);
+  
+  $value = $path;
+  $title && $value ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`, `status`) VALUES (NULL, '$author' , '$title', '$value', '$status') ") : null;
+  
+}
 
 
 

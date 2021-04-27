@@ -38,26 +38,26 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
   </div>
   <header class="sticky-navbar navbar navbar-expand-lg navbar-dark primary-color w-100">
     <div class="container">
-      <a class="navbar-brand" href="/">Sokol</a>
+      <a class="navbar-brand" href="/">STOPяма.рф</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#services">Home</a>
+            <a class="nav-link" href="#services">Главная</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#projects">Features</a>
+            <a class="nav-link" href="#projects">База Ям</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#reviews">Pricing</a>
+            <a class="nav-link" href="#reviews">Поддержка</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#contacts">Blog</a>
+            <a class="nav-link" href="#contacts">Форум</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#contacts">About</a>
+            <a class="nav-link" href="#contacts">О нас</a>
           </li>
           <li class="nav-item">
             <?php
@@ -96,11 +96,11 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
     <section id="preview" class="page-preview d-flex align-items-center justify-content-start" style="min-height: 656px; max-height: 656px; overflow: hidden;">
       <div class="container">
         <div class="preview-image__intro" data-aos="fade-right">
-          <h1>Customer service for a connected world.</h1>
-          <div class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fau</div>
+          <h1>Государственный проект STOPяма.рф</h1>
+          <div class="subtitle">РосЯма — проект Фонда борьбы с коррупцией, созданный для тех, кто недоволен плохими дорогами и хочет это исправить.</div>
           <div class="preview-buttons">
-            <button type="button" class="btn btn-light-blue btn-lg mr-2">Try it free now</button>
-            <button type="button" class="btn btn-lg btn-outline-secondary">Learn More</button>
+            <button type="button" class="btn btn-light-blue btn-lg mr-2">Оставить заявку</button>
+            <button type="button" class="btn btn-lg btn-outline-secondary" data-sokol>Подробнее</button>
           </div>
         </div>
       </div>
@@ -111,8 +111,8 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
         <div class="row">
           <div class="col-lg-5">
             <div class="subpreview__item" data-aos="fade-up">
-              <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-              <div class="subpreview__subtitle">Nullam laoreet nibh in lectus laoreet, vitae laoreet libero condimentum. Suspendisse iaculis eros sed risus luctus venenatis</div>
+              <h1>Хотите оставить обращение?</h1>
+              <div class="subpreview__subtitle">Мы поможем составить обращение, отправить его в ГИБДД и проконтролировать ремонт ям.</div>
             </div>
           </div>
           <div class="col-lg-7">
@@ -141,20 +141,21 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
           
 
         <div class="row">
-
         <?php
           if (mysqli_num_rows($claims)) {
             
             while ($claim = mysqli_fetch_assoc($claims)) {
 
-              $statusText = $claim["status"] === '0' ? 'Открыта' : 'Закрыта';
-              $statusClass = $claim["status"] === '0' ? 'status-open' : 'status-closed';
+              $statusText = $claim["status"] === '1' ? 'Устранено' : 'В обработке';
+              $statusClass = $claim["status"] === '1' ? 'status-open' : 'status-closed';
+              $imageBeforeSrcRender = $claim["value"] === '' ? 'assets/images/noimage.png' : $claim["value"];
+              $imageAfterSrcRender = $claim["newValue"] === '' ? 'assets/images/noimage.png' : $claim["newValue"];
               $renderSecondImage;
 
               if($claim["status"] === '1') {
                 $renderSecondImage = '
                 <div class="claim__item__header__image-second">
-                  <img src="' . $claim["newValue"] . '" alt="После">
+                  <img src="' . $imageAfterSrcRender . '" alt="После">
                   <div class="claim__item__header__image-description">После</div>
                 </div>
                 ';
@@ -162,14 +163,15 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                 $renderSecondImage = '';
               }; 
               echo '
-              <div class="col-lg-4 mb-4" data-aos="fade-right" data-claim-id="' . $claim["id"] . '">
+              <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-right" data-claim-id="' . $claim["id"] . '">
                 <div class="claim__item">
-                  <div class="claim__item__header">
+                  <div class="claim__item__header" data-sokol>
                     <div class="claim__item__header__image-first">
-                      <img src="' . $claim["value"] . '" alt="До">
+                      <img src="' . $imageBeforeSrcRender . '" alt="До">
                       <div class="claim__item__header__image-description">До</div>
                     </div>
                     ' . $renderSecondImage .'
+                    
                   </div>
                   <div class="claim__item__body">
                     <div class="claim__item__body__status ' . $statusClass .'">
@@ -190,12 +192,8 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
             echo '<h3 class="text-center">Новых заявок нет!</h3>';
           }
           ?>
-
-
-
-
-          
         </div>
+
         <div class="container" style="max-width: 700px">
           <div class="my-5">
             <h3 class="my-0">Добавить новую заявку</h3>
@@ -206,7 +204,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
             </div>
             <div class="form-group" id="image-form">
               <label class="form-label" for="image">Изображение</label>
-              <input class="form-control" style="height: 43px;"  name="image" id="image" type="file">
+              <input class="form-control" style="height: 43px;"  name="image" id="image" type="file" accept="image/jpeg,image/png,image/gif">
             </div>
             <div class="form-group">
               <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
@@ -222,10 +220,10 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
       <div class="container">
         <div class="page-section__header" data-aos="fade">
           <h2 class="text-center mb-4">
-            Lorem ipsum dolor sit amet
+            Отызвы о STOPяма.рф
           </h2>
           <div class="page-section__header__subtitle text-center">
-            Quisque vel tellus accumsan, porttitor metus vitae, consectetur felis
+            Мы собрали самые популярные отзывы о нас
           </div>
         </div>
         <div class="swiper-container">
@@ -249,7 +247,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
 
                 <div class="col-lg-4 col-md-12 mb-4">
                   <div class="reviews__item" data-aos="fade-left" data-aos-duration="800">
-                    <div class="reviews__item__text p-3">
+                    <div class="reviews__item__text p-3" data-sokol>
                       Morbi venenatis, nulla at accumsan fermentum, risus ligula vehicula justo, a dapibus arcu purus et arcu
                       <div class="reviews__item__text__triangle"></div>
                     </div>
@@ -381,15 +379,15 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
       <div class="container">
         <div class="page-section__header">
           <h2 class="text-center mb-4" data-aos="fade-left">
-            Lorem ipsum dolor sit amet
+            Заинтересовались?
           </h2>
           <div class="page-section__header__subtitle text-center" data-aos="fade-right">
-            Quisque vel tellus accumsan, porttitor metus vitae, consectetur felis
+            В течении 24 часов мы гарантированно обработаем заявку и вышлем ответ по почте
           </div>
         </div>
 
         <div class="d-flex align-items-center justify-content-center" data-aos="fade-left">
-          <button type="button" class="btn btn-outline-white btn-lg mr-2">Try it free now</button>
+          <button type="button" class="btn btn-outline-white btn-lg mr-2">Оставить заявку</button>
         </div>
       </div>
     </section>

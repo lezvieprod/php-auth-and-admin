@@ -20,29 +20,39 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
     <title>Авторизация и регистрация</title>
     <link rel="icon" type="image/png" href="./images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="./assets/stylesheets/min/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./assets/stylesheets/min/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/stylesheets/min/fonts.min.css">
     <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="../assets/stylesheets/main.css">
+
 </head>
 
 <body>
-    <div class="background"> </div>
-    <div class="cover-container d-flex h-100 p-3 w-100 mx-auto flex-column">
-        <header class="masthead mb-auto">
-            <div class="inner">
-                <h3 class="masthead-brand">Профиль</h3>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" href="profile.php">Профиль</a>
-                    <a class="nav-link " href="claims.php">Мои завяки</a>
-                    <a class="nav-link" href="/">На главную</a>
-                </nav>
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark primary-color w-100 mb-5">
+        <div class="container" style="max-width: 1200px">
+            <a class="navbar-brand" href="/profile.php">Мой профиль</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mr-3">
+                        <a class="nav-link active" href="profile.php">Профиль</a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a class="nav-link" href="claims.php">Мои заявки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">На главную</a>
+                    </li>
+                </ul>
             </div>
-        </header>
-
+        </div>
+    </header>
+    <div class="container" style="max-width: 1200px">
         <main role="main" class="inner profile-body p-5 d-flex flex-wrap">
             <div class="d-flex align-center align-items-center mr-5">
                 <div class="avatar">
-                    <img src="<?= $_SESSION['user']['avatar'] ?>" alt=""/>
+                    <img src="<?= $_SESSION['user']['avatar'] ?>" alt="" />
                 </div>
             </div>
             <div>
@@ -66,13 +76,14 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
                 </p>
             </div>
         </main>
-
-        <footer class="mastfoot mt-auto">
-            <div class="inner">
-
-            </div>
-        </footer>
     </div>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+
+        </div>
+    </footer>
+
 
 
 </body>

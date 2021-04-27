@@ -28,8 +28,8 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" type="text/css" href="../assets/stylesheets/min/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/min/normalize.min.css">
-
+  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/min/fonts.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/main.css">
   <!-- Favicons -->
 
   <meta name="theme-color" content="#7952b3">
@@ -131,77 +131,89 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
       <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
         <div class="container" style="max-width: 1200px">
           <h2 class="my-5">Заявки пользователей</h2>
-          <table class="table table-striped table-md">
-            <?php
-            if (mysqli_num_rows($claims)) {
-              echo ' 
-                  <thead>
-                    <tr data-aos="fade-left" >
-                      <th style="min-width: 50px; ">ID</th>
-                      <th style="min-width: 100px; ">Автор</th>
-                      <th style="min-width: 250px;">Название</th>
-                      <th >Текст заявки</th>
-                      <th class="text-center">Действия</th>
-                    </tr>
-                  </thead>
-                <tbody>
+          <div class="row">
+        <?php
+          if (mysqli_num_rows($claims)) {
+            
+            while ($claim = mysqli_fetch_assoc($claims)) {
+
+              $statusText = $claim["status"] === '1' ? 'Устранено' : 'В обработке';
+              $statusClass = $claim["status"] === '1' ? 'status-open' : 'status-closed';
+              $imageRender = $claim["value"] === '' ? 'assets/images/noimage.png' : $claim["value"];
+              $renderSecondImage;
+
+              if($claim["status"] === '1') {
+                $renderSecondImage = '
+                <div class="claim__item__header__image-second">
+                  <img src="../' . $claim["newValue"] . '" alt="После">
+                  <div class="claim__item__header__image-description">После</div>
+                </div>
                 ';
-              while ($claim = mysqli_fetch_assoc($claims)) {
-                echo '
-                    <tr data-aos="fade-right">
-                      <td >' . $claim["id"] . '</td>
-                      <td >' . $claim["author"] . '</td>
-                      <td >' . $claim["title"] . '</td>
-                      <td>' . $claim["value"] . '</td>
-                      <td style="width: 80px; ">
-                        <div class="dropdown text-center my-3">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              } else {
+                $renderSecondImage = '';
+              }; 
+              echo '
+              <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-right" data-claim-id="' . $claim["id"] . '">
+                <div class="claim__item">
+                  <div class="claim__item__header">
+                    <div class="claim__item__header__image-first">
+                      <img src="../' . $imageRender . '" alt="До">
+                      <div class="claim__item__header__image-description">До</div>
+                    </div>
+                    ' . $renderSecondImage .'
+                    <div class="claim__item__header__control">
+                      <div class="dropdown dropleft text-center">
+                        <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Управление
                         </button>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="./update.php?id=' . $claim['id'] . '">Изменить</a></li>
                             <li><a class="dropdown-item" href="includes/delete-claim.php?id=' . $claim['id'] . '">Удалить</a></li>
                           </ul>
-                        </div>
-                      </td>
-                    </tr>
-                    ';
-              };
-              echo '</tbody>';
-            } else {
-              echo '<h3 class="text-center">Новых заявок нет!</h3>';
-            }
-            ?>
-          </table>
-          
-          <div class="container" style="max-width: 700px">
-            <div class="my-5 pb-5">
-              <div class="my-4">
-                <h3 class="my-0">Добавить новую заявку</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="claim__item__body">
+                    <div class="claim__item__body__status ' . $statusClass .'">
+                    ' . $statusText .'
+                    </div>
+                    <div class="claim__item__body__title">
+                    ' . $claim["title"] . '
+                    </div>
+                    <div class="claim__item__body__subtitle">
+                      Автор: ' . $claim["author"] . '
+                    </div>
+                    <div class="claim__item__body__subtitle">
+                      Заявка: №' . $claim["id"] . '
+                    </div>
+                  </div>
+                </div>
               </div>
-              <form action="includes/add-claim.php" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                  <input class="form-control" type="text" name="title" placeholder="Название заявки">
-                </div>
-                <div class="form-group">
-                  <select id="data-type" name="type" class="form-control">
-                    <option value="1" selected>Текст</option>
-                    <option value="2">Изображение</option>
-                  </select>
-                </div>
-                <div class="form-group" id="text-form">
-                  <textarea class="form-control" type="text" name="value" placeholder="Содержимое"></textarea>
-                </div>
-                <div class="form-group" id="image-form" style="display:none">
-                  <label class="form-label" for="image">Изображение</label>
-                  <input class="form-control" name="image" id="image" type="file">
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Добавить заявку</button>
-                </div>
-              </form>
-            </div>
+                    ';
+            };
+          } else {
+            echo '<h3 class="text-center">Новых заявок нет!</h3>';
+          }
+          ?>
+        </div>
+          
+        <div class="container" style="max-width: 700px">
+          <div class="my-5">
+            <h3 class="my-0">Добавить новую заявку</h3>
           </div>
+          <form action="includes/add-claim.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <input class="form-control" type="text" name="title" placeholder="Название заявки">
+            </div>
+            <div class="form-group" id="image-form">
+              <label class="form-label" for="image">Изображение</label>
+              <input class="form-control" style="height: 43px;"  name="image" id="image" type="file" accept="image/jpeg,image/png,image/gif">
+            </div>
+            <div class="form-group">
+              <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
+            </div>
+          </form>
+        </div>
 
         </div>
       </main>

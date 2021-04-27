@@ -385,6 +385,15 @@ footer.page-footer input {
   max-height: 350px;
   position: relative;
   z-index: 5;
+  -webkit-transition: -webkit-box-shadow .3s ease;
+  transition: -webkit-box-shadow .3s ease;
+  transition: box-shadow .3s ease;
+  transition: box-shadow .3s ease, -webkit-box-shadow .3s ease;
+}
+
+.claim__item:hover {
+  -webkit-box-shadow: 0 0 19px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 19px 2px rgba(0, 0, 0, 0.3);
 }
 
 .claim__item:hover .claim__item__header .claim__item__header__image-second {
@@ -429,6 +438,12 @@ footer.page-footer input {
   border-bottom-right-radius: 8px;
 }
 
+.claim__item__header__control {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .claim__item__body {
   position: absolute;
   bottom: 0;
@@ -441,7 +456,7 @@ footer.page-footer input {
 .claim__item__body::before {
   content: '';
   width: 100%;
-  height: 250px;
+  height: 300px;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(15%, #000000), to(rgba(5, 5, 5, 0)));
   background: linear-gradient(to top, #000000 15%, rgba(5, 5, 5, 0) 100%);
   position: absolute;
@@ -454,15 +469,22 @@ footer.page-footer input {
 .claim__item__body__status {
   z-index: 3;
   position: relative;
-  font-size: 14px;
+  font-size: 13px;
+  border-radius: 25px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0 10px;
 }
 
 .claim__item__body__status.status-open {
   color: #00d400;
+  background-color: rgba(0, 212, 0, 0.192);
 }
 
 .claim__item__body__status.status-closed {
   color: #d40000;
+  background-color: rgba(212, 0, 0, 0.192);
 }
 
 .claim__item__body__title {
@@ -470,6 +492,7 @@ footer.page-footer input {
   position: relative;
   font-weight: 500;
   margin-top: 5px;
+  font-size: 18px;
 }
 
 .claim__item__body__subtitle {
@@ -479,6 +502,28 @@ footer.page-footer input {
   margin-top: 5px;
 }
 
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: #fff !important;
+}
+
+.before-image-holder {
+  height: 150px;
+  width: 250px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.before-image-holder img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 @media only screen and (min-width: 992px) {
   header.sticky-navbar {
     top: 20px;
@@ -486,6 +531,17 @@ footer.page-footer input {
   img.thumbnail-macbook {
     position: absolute;
     top: -115px;
+  }
+  .nav-link.active:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    -webkit-transition: width .3s ease;
+    transition: width .3s ease;
+    background-color: #fff;
   }
   .nav-link:hover:after {
     width: 100%;
