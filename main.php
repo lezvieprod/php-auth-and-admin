@@ -80,7 +80,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                 </a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="profile.php">Мой профиль</a>
-                  <a class="dropdown-item" style="color:red" href="admin/content.php">Админ панель</a>
+                  <a class="dropdown-item" style="color:red" href="admin/content.php" target="_blank">Админ панель</a>
                   <a class="dropdown-item" href="vendor/logout.php">Выйти из аккаунта</a>
                 </div>
               </div>

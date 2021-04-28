@@ -20,7 +20,7 @@ if (!empty($error_fields)) {
     $response = [
         "status" => false,
         "type" => 1,
-        "message" => "Проверьте правильность полей",
+        "message" => "Заполните все необходимые поля",
         "fields" => $error_fields
     ];
 
@@ -56,7 +56,7 @@ if (mysqli_num_rows($check_user) > 0) {
 
     $response = [
         "status" => false,
-        "message" => 'Не верный логин или пароль'
+        "message" => 'Неверный логин или пароль'
     ];
 
     echo json_encode($response);

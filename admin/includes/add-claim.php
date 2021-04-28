@@ -19,6 +19,9 @@ if($_FILES["image"]["name"]) {
   $value = $path;
   $title && $value ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`, `status`) VALUES (NULL, '$author' , '$title', '$value', '$status') ") : null;
   
+} else {
+  $value = '';
+  $title !== '' ? mysqli_query($connect, "INSERT INTO `claims` (`id`, `author` , `title`, `value`, `status`) VALUES (NULL, '$author' , '$title', '$value', '$status') ") : null;
 }
 
 

@@ -139,13 +139,14 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
 
               $statusText = $claim["status"] === '1' ? 'Устранено' : 'В обработке';
               $statusClass = $claim["status"] === '1' ? 'status-open' : 'status-closed';
-              $imageRender = $claim["value"] === '' ? 'assets/images/noimage.png' : $claim["value"];
+              $imageBeforeSrcRender = $claim["value"] === '' ? 'assets/images/noimage.png' : $claim["value"];
+              $imageAfterSrcRender = $claim["newValue"] === '' ? 'assets/images/noimage.png' : $claim["newValue"];
               $renderSecondImage;
 
               if($claim["status"] === '1') {
                 $renderSecondImage = '
                 <div class="claim__item__header__image-second">
-                  <img src="../' . $claim["newValue"] . '" alt="После">
+                  <img src="../' . $imageAfterSrcRender . '" alt="После">
                   <div class="claim__item__header__image-description">После</div>
                 </div>
                 ';
@@ -157,7 +158,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                 <div class="claim__item">
                   <div class="claim__item__header">
                     <div class="claim__item__header__image-first">
-                      <img src="../' . $imageRender . '" alt="До">
+                      <img src="../' . $imageBeforeSrcRender . '" alt="До">
                       <div class="claim__item__header__image-description">До</div>
                     </div>
                     ' . $renderSecondImage .'

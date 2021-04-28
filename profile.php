@@ -21,7 +21,6 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` WHERE `author` = '$auth
     <link rel="icon" type="image/png" href="./images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="./assets/stylesheets/min/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/stylesheets/min/fonts.min.css">
-    <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="stylesheet" type="text/css" href="../assets/stylesheets/main.css">
 
 </head>

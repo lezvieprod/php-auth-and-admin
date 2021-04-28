@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 19 2021 г., 03:05
+-- Время создания: Апр 28 2021 г., 11:37
 -- Версия сервера: 10.3.22-MariaDB
 -- Версия PHP: 7.4.5
 
@@ -31,21 +31,19 @@ CREATE TABLE `claims` (
   `id` int(11) NOT NULL,
   `author` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `value` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `newValue` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `claims`
 --
 
-INSERT INTO `claims` (`id`, `author`, `title`, `value`) VALUES
-(9, 'admin', 'Устранение неровностей дороги на площади Василевского', 'lorem - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. '),
-(10, 'admin', 'Изменение архитектуры зданий на Ленинском проспекте', 'Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. '),
-(11, 'admin', 'Обновить разметку дорого в поселке Ивановка', 'Lorem Ipsum - это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной \"рыбой\" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. '),
-(67, 'admin2', 'testeet', 'testtretdfgsh'),
-(68, 'admin2', '2323545 1111', '4364567'),
-(69, 'admin', '', ''),
-(70, 'admin', 'dfseh', 'hgdf');
+INSERT INTO `claims` (`id`, `author`, `title`, `value`, `newValue`, `status`) VALUES
+(79, 'admin', 'Изменение архитектуры зданий на Ленинском проспекте', 'uploads/1619537601unnamed.jpg', 'uploads/1619537601a3e2812af66211f81849b98c94d2ecbd.jpg', 0),
+(80, 'admin', 'Устранение неровностей дороги на площади Василевского', 'uploads/1619537631file.jpeg', 'uploads/1619537631f1a352a111c5cd4c1d1709497af912d0_XL.jpg', 1),
+(81, 'admin', 'Обновить разметку дороги в поселке Ивановка	', 'uploads/1619537645471265eece5d91f2450da86398848e0c.jfif', 'uploads/1619537645unnamed (1).jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +66,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `login`, `email`, `password`, `avatar`, `user_group`) VALUES
-(9, 'Сокол Илья Владиславович', 'admin', 'ilyxasokol2014@mail.ru', '21232f297a57a5a743894a0e4a801fc3', 'uploads/1618789296programming-wallpaper-gallery-o9lbk8va0wtmpn03.jpg', 1);
+(9, 'Сокол Илья Владиславович', 'admin', 'ilyxasokol2014@mail.ru', '21232f297a57a5a743894a0e4a801fc3', 'uploads/1618789296programming-wallpaper-gallery-o9lbk8va0wtmpn03.jpg', 1),
+(10, 'Сокол Илья Владиславович2', 'user', 'ilyxasokol2014@mail.ru', 'ee11cbb19052e40b07aac0ca060c23ee', 'uploads/1619540013image_2021-04-22_13-07-08.png', 0),
+(11, 'Иван иванович', 'user2', 'ilyxasokol2014@mail.ru', '7e58d63b60197ceb55a1c487989a3720', 'uploads/1619596484TNlo9ZgdqTA.jpg', 0),
+(12, 'Сокол Илья Владиславович', 'user3', 'ilyxasokol2014@mail.ru', '92877af70a45fd6a2ed7fe81e1236b78', 'uploads/1619596582TNlo9ZgdqTA.jpg', 0);
 
 --
 -- Индексы сохранённых таблиц
@@ -94,13 +95,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `claims`
 --
 ALTER TABLE `claims`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,10 +2,10 @@
     Авторизация
  */
 
-$('.login-btn').click(function (e) {
+$('.btn-sumbit').click(function (e) {
     e.preventDefault();
 
-    $(`input`).removeClass('error');
+    $(`input`).removeClass('is-invalid');
 
     let login = $('input[name="login"]').val(),
         password = $('input[name="password"]').val();
@@ -26,11 +26,11 @@ $('.login-btn').click(function (e) {
 
                 if (data.type === 1) {
                     data.fields.forEach(function (field) {
-                        $(`input[name="${field}"]`).addClass('error');
+                        $(`input[name="${field}"]`).addClass('is-invalid');
                     });
                 }
 
-                $('.msg').removeClass('none').text(data.message);
+                $('.alert').removeClass('d-none').text(data.message);
             }
 
         }
@@ -55,7 +55,7 @@ $('input[name="avatar"]').change(function (e) {
 $('.register-btn').click(function (e) {
     e.preventDefault();
 
-    $(`input`).removeClass('error');
+    $(`input`).removeClass('is-invalid');
 
     let login = $('input[name="login"]').val(),
         password = $('input[name="password"]').val(),
@@ -88,11 +88,11 @@ $('.register-btn').click(function (e) {
 
                 if (data.type === 1) {
                     data.fields.forEach(function (field) {
-                        $(`input[name="${field}"]`).addClass('error');
+                        $(`input[name="${field}"]`).addClass('is-invalid');
                     });
                 }
 
-                $('.msg').removeClass('none').text(data.message);
+                $('.alert').removeClass('d-none').text(data.message);
 
             }
 

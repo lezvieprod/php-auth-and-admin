@@ -52,7 +52,7 @@ if (!empty($error_fields)) {
     $response = [
         "status" => false,
         "type" => 1,
-        "message" => "Проверьте правильность полей",
+        "message" => "Заполните все необходимые поля",
         "fields" => $error_fields
     ];
 

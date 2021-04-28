@@ -101,7 +101,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
 <body>
 
   <header class="navbar navbar-expand-lg navbar-dark bg-dark primary-color w-100">
-    <div class="container" style="max-width: 1200px">
+    <div class="container" style="max-width: 900px">
       <a class="navbar-brand" href="content.php">Панель управления</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -129,7 +129,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
     <div class="row">
 
       <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
-        <div class="container" style="max-width: 1200px">
+        <div class="container" style="max-width: 900px">
           <div class="my-5 pb-5">
             <div class="my-4">
               <h3 class="my-0">Изменить заявку № <?= $id ?> (автор <?= $claim["author"] ?>)</h3>
@@ -151,7 +151,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
               <div class="form-group" id="image-form">
                 <label class="form-label" for="imageBefore">Изображение до</label>
                 <?php
-                if ($claim["value"] !== '')
+                if ($claim["value"] !== '' && $claim["value"] !== NULL)
                   echo '
                   <div class="before-image-holder mb-2">
                     <img src="../' . $claim["value"] . '" alt="До">
@@ -173,7 +173,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
               <div class="form-group" id="image-form">
                 <label class="form-label" for="imageAfter">Изображение после</label>
                 <?php
-                if ($claim["newValue"] !== '')
+                if ($claim["newValue"] !== NULL && $claim["newValue"] !== '')
                   echo '
                   <div class="before-image-holder mb-2">
                     <img src="../' . $claim["newValue"] . '" alt="После">
