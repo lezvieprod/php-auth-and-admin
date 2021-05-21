@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div>
       <div class="form-group">
         <label>Пароль</label>
-        <input type="password" class="form-control" name="rootpass" required>
+        <input type="password" class="form-control sokol-pass" name="rootpass">
         <div class="form-text" style="color: #6c757d; font-size: .875em;">
           Обычно 'root' или без пароля
         </div>
