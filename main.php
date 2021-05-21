@@ -189,7 +189,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                     ';
             };
           } else {
-            echo '<h3 class="text-center">Новых заявок нет!</h3>';
+            echo '<h3 class="text-center w-100">Новых заявок нет!</h3>';
           }
           ?>
         </div>

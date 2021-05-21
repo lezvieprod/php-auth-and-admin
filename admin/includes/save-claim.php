@@ -5,6 +5,7 @@ session_start();
 if (!$_SESSION['user']) {
   header('Location: /');
 }
+header('Location: /admin/content.php');
 
 require_once './../../vendor/connect.php';
 
@@ -39,4 +40,4 @@ if($_FILES["imageAfter"]["name"]) {
 
 mysqli_query($connect, "UPDATE `claims` SET `title` = '$title', `value` = '$value', `status` = '$status', `newValue` = '$newValue' WHERE `claims`.`id` = $id");
 
-header('Location: /admin/content.php');
+

@@ -130,30 +130,30 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
     <div class="row">
       <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
         <div class="container" style="max-width: 1200px">
-          <h2 class="my-5">Заявки пользователей</h2>
+          <h2 class="my-5 text-center w-100">Заявки пользователей</h2>
           <div class="row">
-        <?php
-          if (mysqli_num_rows($claims)) {
-            
-            while ($claim = mysqli_fetch_assoc($claims)) {
+            <?php
+            if (mysqli_num_rows($claims)) {
 
-              $statusText = $claim["status"] === '1' ? 'Устранено' : 'В обработке';
-              $statusClass = $claim["status"] === '1' ? 'status-open' : 'status-closed';
-              $imageBeforeSrcRender = $claim["value"] === '' ? 'assets/images/noimage.png' : $claim["value"];
-              $imageAfterSrcRender = $claim["newValue"] === '' ? 'assets/images/noimage.png' : $claim["newValue"];
-              $renderSecondImage;
+              while ($claim = mysqli_fetch_assoc($claims)) {
 
-              if($claim["status"] === '1') {
-                $renderSecondImage = '
+                $statusText = $claim["status"] === '1' ? 'Устранено' : 'В обработке';
+                $statusClass = $claim["status"] === '1' ? 'status-open' : 'status-closed';
+                $imageBeforeSrcRender = $claim["value"] === '' ? 'assets/images/noimage.png' : $claim["value"];
+                $imageAfterSrcRender = $claim["newValue"] === '' ? 'assets/images/noimage.png' : $claim["newValue"];
+                $renderSecondImage;
+
+                if ($claim["status"] === '1') {
+                  $renderSecondImage = '
                 <div class="claim__item__header__image-second">
                   <img src="../' . $imageAfterSrcRender . '" alt="После">
                   <div class="claim__item__header__image-description">После</div>
                 </div>
                 ';
-              } else {
-                $renderSecondImage = '';
-              }; 
-              echo '
+                } else {
+                  $renderSecondImage = '';
+                };
+                echo '
               <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-right" data-claim-id="' . $claim["id"] . '">
                 <div class="claim__item">
                   <div class="claim__item__header">
@@ -161,7 +161,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                       <img src="../' . $imageBeforeSrcRender . '" alt="До">
                       <div class="claim__item__header__image-description">До</div>
                     </div>
-                    ' . $renderSecondImage .'
+                    ' . $renderSecondImage . '
                     <div class="claim__item__header__control">
                       <div class="dropdown dropleft text-center">
                         <button class="btn btn-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -175,8 +175,8 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                     </div>
                   </div>
                   <div class="claim__item__body">
-                    <div class="claim__item__body__status ' . $statusClass .'">
-                    ' . $statusText .'
+                    <div class="claim__item__body__status ' . $statusClass . '">
+                    ' . $statusText . '
                     </div>
                     <div class="claim__item__body__title">
                     ' . $claim["title"] . '
@@ -191,30 +191,35 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
                 </div>
               </div>
                     ';
-            };
-          } else {
-            echo '<h3 class="text-center">Новых заявок нет!</h3>';
-          }
-          ?>
-        </div>
-          
-        <div class="container" style="max-width: 700px">
-          <div class="my-5">
-            <h3 class="my-0">Добавить новую заявку</h3>
+              };
+            } else {
+              echo '<h3 class="text-center w-100">Новых заявок нет!</h3>';
+            }
+            ?>
           </div>
-          <form action="includes/add-claim.php" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-              <input class="form-control" type="text" name="title" placeholder="Название заявки">
+
+          <div class="container" style="max-width: 700px">
+            <div class="my-5">
+              <h3 class="my-0">Добавить новую заявку</h3>
             </div>
-            <div class="form-group" id="image-form">
-              <label class="form-label" for="image">Изображение</label>
-              <input class="form-control" style="height: 43px;"  name="image" id="image" type="file" accept="image/jpeg,image/png,image/gif">
+            <form action="includes/add-claim.php" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <input class="form-control" type="text" name="title" placeholder="Название заявки">
+              </div>
+              <div class="form-group" id="image-form">
+                <label class="form-label" for="image">Изображение</label>
+                <input class="form-control" style="height: 43px;" name="image" id="image" type="file" accept="image/jpeg,image/png,image/gif">
+              </div>
+              <div class="form-group">
+                <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
+              </div>
+            </form>
+
+            <div class="my-5">
+              <h5 class="my-3">Дополнительные настройки</h5>
+              <a href="../deletedb.php" class="btn btn-danger">Удалить базу данных</a>
             </div>
-            <div class="form-group">
-              <button name="submit" type="submit" class="btn btn-primary">Добавить заявку</button>
-            </div>
-          </form>
-        </div>
+          </div>
 
         </div>
       </main>

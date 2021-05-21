@@ -1,16 +1,16 @@
 <?php
 session_start();
-require_once './vendor/dbconfig.php';
 
 
 if ($_SESSION['user']) {
   header('Location: main.php');
 }
 
+require_once './vendor/dbconfig.php';
 
-// if(!$dbinit) {
-//   header('Location: createdb.php');
-// }
+if(!$dbinit) {
+  header('Location: createdb.php');
+}
 
 ?>
 

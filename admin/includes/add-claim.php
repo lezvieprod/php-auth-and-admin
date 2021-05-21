@@ -5,6 +5,7 @@ session_start();
 if (!$_SESSION['user']) {
   header('Location: /');
 }
+header('Location: /');
 
 require_once './../../vendor/connect.php';
 
@@ -26,4 +27,3 @@ if($_FILES["image"]["name"]) {
 
 
 
-header('Location: /');

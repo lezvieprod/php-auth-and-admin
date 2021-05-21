@@ -1,10 +1,9 @@
 <?php
 session_start();
-require_once './vendor/dbconfig.php';
 error_reporting(0);
 
 if ($_SESSION['user']) {
-  header('Location: /');
+  header('Location: register.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -38,19 +37,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       )";
 
     if ($DBconnect->query($sql) === TRUE && $DBconnect->query($sql2) === TRUE) {
-      header('Location: /');
+      header('Location: register.php');
       $file = './vendor/dbconfig.php';
       $current = file_get_contents($file);
-      $current .= '
-                <?php 
-                  session_start();
-                  $dbinit = true;
-                  $servername = "'. $servername .'";
-                  $dblogin = "'. $dblogin .'";
-                  $dbpass = "'. $dbpass .'";
-                  $dbname = "'. $dbname .'";
-                ?>
-       ';
+      $current .= '<?php 
+        session_start();
+        $dbinit = true;
+        $servername = "'. $servername .'";
+        $dblogin = "'. $dblogin .'";
+        $dbpass = "'. $dbpass .'";
+        $dbname = "'. $dbname .'";
+        $sokol = "init";
+      ?>';
         file_put_contents($file, $current);
 
     } else {
@@ -58,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
   }
-  // die();
 }
 
 
@@ -127,3 +124,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
+
+<?php //soKol ?>
