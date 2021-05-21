@@ -4,6 +4,9 @@ session_start();
 if (!$_SESSION['user']) {
   header('Location: main.php');
 }
+if ($_SESSION['user']['user_group'] === '0') {
+  header('Location: /');
+}
 
 require_once './vendor/connect.php';
 
