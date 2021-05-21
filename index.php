@@ -1,9 +1,16 @@
 <?php
 session_start();
+require_once './vendor/dbconfig.php';
+
 
 if ($_SESSION['user']) {
   header('Location: main.php');
 }
+
+
+// if(!$dbinit) {
+//   header('Location: createdb.php');
+// }
 
 ?>
 
@@ -22,6 +29,7 @@ if ($_SESSION['user']) {
   <div class="d-flex h-100 py-5">
     <form class="auth-form p-4 m-auto">
       <h2 style="margin-bottom: 2rem ">Авторизация</h2>
+     
       <div class="alert alert-danger d-none my-3" role="alert"></div>
       <div class="form-group">
         <label>Логин</label>

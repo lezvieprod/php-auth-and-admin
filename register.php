@@ -3,7 +3,11 @@ session_start();
 if ($_SESSION['user']) {
   header('Location: main.php');
 }
+
+require_once './vendor/dbconfig.php';
 ?>
+
+
 
 <!doctype html>
 <html lang="en">
