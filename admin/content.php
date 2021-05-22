@@ -11,6 +11,9 @@ if ($_SESSION['user']['user_group'] === '0') {
 
 require_once '../vendor/connect.php';
 $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
+$claimsCompletedLength = mysqli_query($connect,"SELECT `status` FROM `claims` WHERE status = 1");
+$claimsProcessingLength = mysqli_query($connect,"SELECT `status` FROM `claims` WHERE status = 0");
+
 
 
 ?>
@@ -117,7 +120,7 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="../profile.php">Мой профиль</a>
                 <a class="dropdown-item" href="../main.php">На главную</a>
-                <a class="dropdown-item" href="../vendor/logout.php">Выйти из аккаунта</a>
+                <a class="dropdown-item" href=".././vendor/logout.php">Выйти из аккаунта</a>
               </div>
             </div>
           </li>
@@ -130,7 +133,27 @@ $claims = mysqli_query($connect, "SELECT * FROM `claims` ");
     <div class="row">
       <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4">
         <div class="container" style="max-width: 1200px">
-          <h2 class="my-5 text-center w-100">Заявки пользователей</h2>
+          <div class="text-center mt-5">
+            <div>
+              Всего: 
+              <span style="font-weight: 700">
+                <?= mysqli_num_rows($claims) ?>
+              </span>
+            </div>
+            <div>
+              Обработанных:
+               <span style="color: green; font-weight: 700">
+                <?= mysqli_num_rows($claimsCompletedLength)?>
+               </span>
+            </div>
+            <div>
+              Не обработанных:
+               <span style="color: red; font-weight: 700">
+                <?= mysqli_num_rows($claimsProcessingLength)?>
+               </span>
+            </div>
+          </div>
+          <h2 class="mb-5 mt-2 text-center w-100">Заявки пользователей</h2>
           <div class="row">
             <?php
             if (mysqli_num_rows($claims)) {

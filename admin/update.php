@@ -116,7 +116,7 @@ $claim = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `claims` WHERE
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="../profile.php">Мой профиль</a>
                 <a class="dropdown-item" href="../main.php">На главную</a>
-                <a class="dropdown-item" href="vendor/logout.php">Выйти из аккаунта</a>
+                <a class="dropdown-item" href=".././vendor/logout.php">Выйти из аккаунта</a>
               </div>
             </div>
           </li>
