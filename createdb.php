@@ -6,6 +6,12 @@ if ($_SESSION['user']) {
   header('Location: register.php');
 }
 
+require_once './vendor/dbconfig.php';
+
+if($dbinit && $sokol === 'init') {
+  header('Location: /');
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $servername = $_POST['servername'];
   $dbname = $_POST['dbname'];
@@ -13,51 +19,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $dbpass = $_POST['rootpass'];
   $PMAconnect = mysqli_connect($servername, $dblogin, $dbpass);
   if (!mysqli_connect_errno()) {
-    if ($PMAconnect->query("CREATE DATABASE $dbname") === TRUE) {} else {
+    if ($PMAconnect->query("CREATE DATABASE $dbname") === TRUE) {
+      $DBconnect = mysqli_connect($servername, $dblogin, $dbpass, $dbname);
+      $sql = "CREATE TABLE claims (
+        id INT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        author text NOT NULL,
+        title VARCHAR(200),
+        value text,
+        newValue text,
+        status int(0) NOT NULL
+        )";
+      $sql2 = "CREATE TABLE users (
+        id INT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        full_name VARCHAR(355),
+        login VARCHAR(100),
+        email VARCHAR(255),
+        password VARCHAR(500),
+        avatar VARCHAR(500),
+        user_group INT(0) NOT NULL
+        )";
+      if ($DBconnect->query($sql) === TRUE && $DBconnect->query($sql2) === TRUE) {
+        header('Location: register.php');
+        $file = './vendor/dbconfig.php';
+        $current = file_get_contents($file);
+        $current .= '<?php 
+          session_start();
+          $dbinit = true;
+          $servername = "'. $servername .'";
+          $dblogin = "'. $dblogin .'";
+          $dbpass = "'. $dbpass .'";
+          $dbname = "'. $dbname .'";
+          $sokol = "init";
+        ?>';
+          file_put_contents($file, $current);
+      } else {
+        echo "Error creating table: " . $DBconnect->error;
+      }
+    } else {
       echo "Error creating database: " . $conn->error;
     }
-    $DBconnect = mysqli_connect($servername, $dblogin, $dbpass, $dbname);
-    $sql = "CREATE TABLE claims (
-      id INT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-      author text NOT NULL,
-      title VARCHAR(200),
-      value text,
-      newValue text,
-      status int(0) NOT NULL
-      )";
-
-    $sql2 = "CREATE TABLE users (
-      id INT(1) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-      full_name VARCHAR(355),
-      login VARCHAR(100),
-      email VARCHAR(255),
-      password VARCHAR(500),
-      avatar VARCHAR(500),
-      user_group INT(0) NOT NULL
-      )";
-
-    if ($DBconnect->query($sql) === TRUE && $DBconnect->query($sql2) === TRUE) {
-      header('Location: register.php');
-      $file = './vendor/dbconfig.php';
-      $current = file_get_contents($file);
-      $current .= '<?php 
-        session_start();
-        $dbinit = true;
-        $servername = "'. $servername .'";
-        $dblogin = "'. $dblogin .'";
-        $dbpass = "'. $dbpass .'";
-        $dbname = "'. $dbname .'";
-        $sokol = "init";
-      ?>';
-        file_put_contents($file, $current);
-
-    } else {
-      echo "Error creating table: " . $DBconnect->error;
-    }
-
   }
 }
-
 
 ?>
 
